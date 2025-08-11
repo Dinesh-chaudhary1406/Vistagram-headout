@@ -1,14 +1,17 @@
 const OpenAI = require('openai');
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+// Initialize OpenAI client only if API key is provided
+let openai = null;
+if (process.env.OPENAI_API_KEY) {
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+  });
+}
 
 // Generate AI caption for an image
 async function generateCaption(imageDescription) {
   try {
-    if (!process.env.OPENAI_API_KEY) {
+    if (!openai) {
       // Fallback captions if no API key
       const fallbackCaptions = [
         "Living my best life! ✨",

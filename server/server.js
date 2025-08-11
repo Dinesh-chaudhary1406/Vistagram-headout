@@ -35,6 +35,7 @@ app.get('/api/health', (req, res) => {
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/vistagram', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 2000,
 })
 .then(() => {
   console.log('✅ Connected to MongoDB');
